@@ -3,6 +3,7 @@ import json
 import re
 from datetime import datetime
 from functools import wraps
+from packaging import version
 
 import pytz
 
@@ -295,7 +296,8 @@ class ElasticMapReduceResponse(BaseResponse):
         custom_ami_id = self._get_param("CustomAmiId")
         if custom_ami_id:
             kwargs["custom_ami_id"] = custom_ami_id
-            if release_label and release_label < "emr-5.7.0":
+            if version.parse(release_label) and version.parse(release_label) < version.parse("emr-5.7.0"):
+
                 message = "Custom AMI is not allowed"
                 raise EmrError(
                     error_type="ValidationException",
