@@ -35,6 +35,7 @@ class FakeInstanceGroup(BaseModel):
         name=None,
         id=None,
         bid_price=None,
+        **kwargs
     ):
         self.id = id or random_instance_group_id()
 
